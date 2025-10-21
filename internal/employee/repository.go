@@ -36,7 +36,6 @@ func (r *Repository) Load() ([]Employee, error) {
 
 func (r *Repository) Save(employees []Employee) error {
 	data, err := json.Marshal(employees)
-	fmt.Println(string(data))
 	if err != nil {
 		return err
 	}
