@@ -51,7 +51,7 @@ func (s *Service) Del(id int) {
 // helper
 func (s *Service) indexFromId(id int) int {
 	for i, e := range s.Employees {
-		if e.id == id {
+		if e.Id == id {
 			return i
 		}
 	}

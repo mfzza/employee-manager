@@ -3,11 +3,11 @@ package employee
 import "fmt"
 
 type Employee struct {
-	id       int
-	name     string
-	phone    string
-	position string
-	email    string
+	Id       int
+	Name     string
+	Phone    string
+	Position string
+	Email    string
 }
 
 func NewEmployee(id int, name string, phone string, position string, email string) *Employee {
@@ -15,11 +15,11 @@ func NewEmployee(id int, name string, phone string, position string, email strin
 }
 
 func (e *Employee) idString() string {
-	return fmt.Sprintf("%03d", e.id)
+	return fmt.Sprintf("%03d", e.Id)
 }
 
 func (e *Employee) simpleString() string {
-	return fmt.Sprintf("%s\t|\t%s\t|\t%s", e.idString(), e.name, e.phone)
+	return fmt.Sprintf("%s\t|\t%s\t|\t%s", e.idString(), e.Name, e.Phone)
 }
 
 func (e Employee) DetailString() string {
@@ -31,5 +31,5 @@ func (e Employee) DetailString() string {
 			"Position: %s\n"+
 			"Email: %s\n"+
 			"=============================",
-		e.idString(), e.name, e.phone, e.position, e.email)
+		e.idString(), e.Name, e.Phone, e.Position, e.Email)
 }
