@@ -32,19 +32,27 @@ func (s *Service) List() {
 	}
 }
 
-func (s *Service) View(id int) {
-	// TODO: bound check, maybe just check for -1 value?
+func (s *Service) View(id int) error{
 	idx := s.indexFromId(id)
+	if idx < 0 {
+		return fmt.Errorf("Cant view data, id: %d not exists", id)
+	}
+
 	fmt.Println(s.Employees[idx].DetailString())
+	return nil
 }
 
-// TODO: implement this
+// TODO: implement this, should be able to let user select what they want to edit, maybe wait for cli implementation?
 func (s *Service) Edit() {}
 
-func (s *Service) Del(id int) {
-	// TODO: bound check
+func (s *Service) Del(id int) error {
 	idx := s.indexFromId(id)
+	if idx < 0 {
+		return fmt.Errorf("Cant delete data, id: %d not exists", id)
+	}
+
 	s.Employees = append(s.Employees[:idx], s.Employees[idx+1:]...)
+	return nil
 }
 
 // helper
