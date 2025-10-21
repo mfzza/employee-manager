@@ -5,23 +5,22 @@ import (
 )
 
 type Service struct {
-	Employees []Employee
+	Employees []Employee // TODO: should not store it in-memory(?)
+	Repo      Repository
 	NextId    int
 }
 
-func NewService() *Service {
+func NewService(repo Repository) *Service {
 	// empty slice
 	// NOTE: id start from 1
-	return &Service{Employees: []Employee{}, NextId: 1}
+	return &Service{Employees: []Employee{}, Repo: repo, NextId: 1}
 }
 
 func (s *Service) Add(name string, phone string, position string, email string) {
-	emp := NewEmployee(s.NextId, name, phone, position, email)
+	s.updateLastId()
+	addedEmployee := NewEmployee(s.NextId, name, phone, position, email)
 
-	// update idNext
-	s.NextId++
-
-	s.Employees = append(s.Employees, *emp)
+	s.Employees = append(s.Employees, *addedEmployee)
 }
 
 func (s *Service) List() {
@@ -56,4 +55,16 @@ func (s *Service) indexFromId(id int) int {
 		}
 	}
 	return -1
+}
+
+func (s *Service) updateLastId() int {
+	lastIndex := len(s.Employees) - 1
+	// return 0 since it empty
+	if lastIndex < 0 {
+		s.NextId = 1
+		return 1
+	}
+	s.NextId = s.Employees[lastIndex].Id + 1
+	return s.NextId
+
 }

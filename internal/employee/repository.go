@@ -29,8 +29,6 @@ func (r *Repository) Load() ([]Employee, error) {
 		return nil, fmt.Errorf("failed to unmarshal json: %w", err)
 	}
 
-	// TODO: Determine last ID
-
 	return employees, nil
 }
 
