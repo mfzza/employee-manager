@@ -10,22 +10,16 @@ import (
 )
 
 func main() {
-	// NOTE: Test, delete later
-	srv := employee.NewService()
-	srv.Add("gopher", "123-2134-1234", "cool dude", "gopher@gomail.com")
-	srv.Add("gopher", "123-2134-1234", "cool dude", "gopher@gomail.com")
-	srv.Add("gopher", "123-2134-1234", "cool dude", "gopher@gomail.com")
-	srv.Add("gopher", "123-2134-1234", "cool dude", "gopher@gomail.com")
-	srv.Add("gopher", "123-2134-1234", "cool dude", "gopher@gomail.com")
+	repo := employee.NewRepository("./MOCK_DATA.json")
+	srv := employee.NewService(*repo)
 
-	srv.List()
-	srv.Del(2)
-	srv.List()
-	l := srv.List("phone")
-	for _, e := range l {
-		fmt.Printf("ID: %d\t Name: %s  Phone: %s\n", e.Id, e.Name, e.Phone)
+	var err error
+	srv.Employees, err = repo.Load()
+	if err != nil {
+		fmt.Println("Error loading file:", err)
 	}
-	p := tea.NewProgram(cli.Model{})
+
+	p := tea.NewProgram(cli.InitialModel(srv))
 	if _, err := p.Run(); err != nil {
 		fmt.Println("Error running program:", err)
 		os.Exit(1)
