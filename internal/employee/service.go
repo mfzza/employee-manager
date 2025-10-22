@@ -6,14 +6,14 @@ import (
 
 type Service struct {
 	Employees []Employee // TODO: should not store it in-memory(?)
-	Repo      Repository
+	Repo      *Repository
 	NextId    int
 }
 
 func NewService(repo Repository) *Service {
 	// empty slice
 	// NOTE: id start from 1
-	return &Service{Employees: []Employee{}, Repo: repo, NextId: 1}
+	return &Service{Employees: []Employee{}, Repo: &repo, NextId: 1}
 }
 
 func (s *Service) Add(name string, phone string, position string, email string) {
