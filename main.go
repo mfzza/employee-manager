@@ -1,7 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"os"
+
 	"employee-management/internal/employee"
+	"employee-management/internal/cli"
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 func main() {
@@ -16,4 +21,9 @@ func main() {
 	srv.List()
 	srv.Del(2)
 	srv.List()
+	p := tea.NewProgram(cli.Model{})
+	if _, err := p.Run(); err != nil {
+		fmt.Println("Error running program:", err)
+		os.Exit(1)
+	}
 }
