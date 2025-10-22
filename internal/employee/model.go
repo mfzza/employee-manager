@@ -18,10 +18,6 @@ func (e *Employee) idString() string {
 	return fmt.Sprintf("%03d", e.Id)
 }
 
-func (e *Employee) simpleString() string {
-	return fmt.Sprintf("%s\t|\t%s\t|\t%s", e.idString(), e.Name, e.Phone)
-}
-
 func (e Employee) DetailString() string {
 	return fmt.Sprintf(
 		"=============================\n"+

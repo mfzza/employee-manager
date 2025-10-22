@@ -21,6 +21,10 @@ func main() {
 	srv.List()
 	srv.Del(2)
 	srv.List()
+	l := srv.List("phone")
+	for _, e := range l {
+		fmt.Printf("ID: %d\t Name: %s  Phone: %s\n", e.Id, e.Name, e.Phone)
+	}
 	p := tea.NewProgram(cli.Model{})
 	if _, err := p.Run(); err != nil {
 		fmt.Println("Error running program:", err)

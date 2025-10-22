@@ -2,12 +2,19 @@ package employee
 
 import (
 	"fmt"
+	"sort"
 )
 
 type Service struct {
 	Employees []Employee // TODO: should not store it in-memory(?)
 	Repo      *Repository
 	NextId    int
+}
+
+type employeeSimple struct {
+	Id    int
+	Name  string
+	Phone string
 }
 
 func NewService(repo Repository) *Service {
@@ -23,13 +30,23 @@ func (s *Service) Add(name string, phone string, position string, email string) 
 	s.Employees = append(s.Employees, *addedEmployee)
 }
 
-func (s *Service) List() {
-	// TODO: better format, just return whole employees and let other interface to handle it?
-	fmt.Printf("%s\t|\t%s\t|\t%s", "ID", "NAME", "PHONE")
-	fmt.Println()
+func (s *Service) List(sorting string) []employeeSimple {
+	var list []employeeSimple
 	for _, e := range s.Employees {
-		fmt.Println(e.simpleString())
+		list = append(list, employeeSimple{e.Id, e.Name, e.Phone})
 	}
+
+	sortById := func(i, j int) bool { return list[i].Id < list[j].Id }
+	sortByPhone := func(i, j int) bool { return list[i].Phone < list[j].Phone }
+	sortByName := func(i, j int) bool { return list[i].Name < list[j].Name }
+
+	switch sorting {
+	case "name": sort.Slice(list, sortByName)
+	case "phone": sort.Slice(list, sortByPhone)
+	default: sort.Slice(list, sortById) // NOTE: can i just remove this? since in json should be already sorted
+	}
+
+	return list
 }
 
 func (s *Service) View(id int) error{
