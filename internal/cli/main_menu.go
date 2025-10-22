@@ -99,6 +99,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m Model) View() string {
 	render := ""
+	hint := "\n-------------------------------------------------------\n"
 	switch m.state {
 	case optMenu:
 		render += renderHeader("MAIN MENU")
@@ -110,6 +111,8 @@ func (m Model) View() string {
 	case optList:
 		render += renderHeader("LIST")
 		render += m.table.View() + "\n"
+		hint += "sort by: [I]d, [N]ame or [P]hone. [Q]uit. [M]ain menu"
+		render += hint
 	}
 	return render
 }
@@ -139,12 +142,12 @@ func renderHeader(title string) string {
 }
 
 func renderMainMenu() string {
-	return fmt.Sprintf(`%d. Add
-%d. List
-%d. View
-%d. Edit
-%d. Delete
-Q. Quit
+	return fmt.Sprintf(`[%d] Add
+[%d] List
+[%d] View
+[%d] Edit
+[%d] Delete
+[Q] Quit
 `, optAdd, optList, optView, optEdit, optDelete)
 }
 
