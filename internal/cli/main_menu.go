@@ -49,7 +49,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.table, cmd = m.table.Update(msg)
 
 			// key shortcut
-			// TODO: add hints
 			switch msg.String() {
 			case "m", "M":
 				m.state = optMenu
