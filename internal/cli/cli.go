@@ -17,17 +17,17 @@ const (
 	optView
 	optEdit
 	optDelete
-	optInputId
 )
 
 type Model struct {
-	state    optState
-	message  string
-	quitting bool
-	service  *employee.Service
-	table    table.Model
-	textInput    textinput.Model
-	selectedEmployee   employee.Employee
+	state            optState
+	inputState       bool
+	message          string
+	quitting         bool
+	service          *employee.Service
+	table            table.Model
+	textInput        textinput.Model
+	selectedEmployee employee.Employee
 }
 
 func InitialModel(s *employee.Service) Model {
@@ -50,8 +50,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m.update_list(msg)
 		case optView:
 			return m.update_view(msg)
-		case optInputId:
-			return m.update_inputId(msg)
 		}
 	}
 
@@ -68,9 +66,6 @@ func (m Model) View() string {
 
 	case optView:
 		return m.view_view()
-
-	case optInputId:
-		return m.view_inputId()
 	}
 
 	return ""

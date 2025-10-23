@@ -26,7 +26,7 @@ func (m Model) update_inputId(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 			return m, cmd
 		}
 		// TODO: should be previous state, not hardcoded into optView
-		m.state = optView
+		m.inputState = false
 
 	case "ctrl+c":
 		m.quitting = true
