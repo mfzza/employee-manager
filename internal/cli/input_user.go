@@ -41,7 +41,7 @@ func (m Model) update_inputId(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 func (m Model) view_inputId() string {
 	render := renderHeader("Input Employee ID")
 	render += m.textInput.View()
-	render += renderFooter("[Esc] Main menu. [ctrl+c] Exit")
+	render += renderFooter("[Esc] Main menu. [ctrl+c] Quit")
 	render += "\n\n"
 	render += m.message
 	return render
