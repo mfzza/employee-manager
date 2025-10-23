@@ -9,11 +9,11 @@ import (
 
 func (m Model) update_inputId(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
-	m.textInput, cmd = m.textInput.Update(msg)
+	m.idInput, cmd = m.idInput.Update(msg)
 
 	switch msg.String() {
 	case tea.KeyEnter.String():
-		inputId, err := strconv.Atoi(m.textInput.Value())
+		inputId, err := strconv.Atoi(m.idInput.Value())
 
 		// if input is not a number, then keep user in input
 		if err != nil {
@@ -40,7 +40,7 @@ func (m Model) update_inputId(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 func (m Model) view_inputId() string {
 	render := renderHeader("Input Employee ID")
-	render += m.textInput.View()
+	render += m.idInput.View()
 	render += renderFooter("[Esc] Main menu. [ctrl+c] Quit")
 	render += "\n\n"
 	render += m.message

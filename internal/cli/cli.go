@@ -20,19 +20,27 @@ const (
 )
 
 type Model struct {
-	state            optState
-	inputState       bool
-	message          string
-	quitting         bool
-	service          *employee.Service
-	table            table.Model
-	textInput        textinput.Model
+	state    optState
+	message  string
+	quitting bool
+	service  *employee.Service
+
+	// handle list
+	table table.Model
+
+	// handle id input (view, edit, delete)
+	inputState bool
+	idInput    textinput.Model
+
+	// handle employee input (name, email and so on) (add and edit)
+	employeeInfoInput []textinput.Model
+	focusedInfo       int
+
 	selectedEmployee employee.Employee
 }
 
 func InitialModel(s *employee.Service) Model {
-
-	return Model{service: s, state: optMenu}
+	return Model{service: s, state: optMenu, employeeInfoInput: make([]textinput.Model, 4)}
 }
 
 func (m Model) Init() tea.Cmd {

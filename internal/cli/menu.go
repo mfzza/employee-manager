@@ -20,14 +20,15 @@ func (m Model) update_menu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.message = "You chose: View"
 		m.inputState = true
 		m.state = optView
-		m.textInput = m.init_textInputId()
+		m.idInput = m.init_textInputId()
+
 	case strconv.Itoa(int(optEdit)):
 		m.message = "You chose: Edit"
 	case strconv.Itoa(int(optDelete)):
 		m.message = "You chose: Delete"
 		m.inputState = true
 		m.state = optDelete
-		m.textInput = m.init_textInputId()
+		m.idInput = m.init_textInputId()
 
 	case "q", "Q", "ctrl+c":
 		m.message = "Exiting program..."

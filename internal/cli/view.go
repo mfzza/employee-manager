@@ -14,7 +14,7 @@ func (m Model) update_view(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case "m", "M", tea.KeyEnter.String():
 		m.state = optMenu
 	case "b", "B":
-		m.textInput.SetValue("")
+		m.idInput.SetValue("")
 		m.inputState = true
 	case "ctrl+c", "q", "Q":
 		m.quitting = true
