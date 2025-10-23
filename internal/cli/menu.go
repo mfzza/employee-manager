@@ -35,19 +35,20 @@ func (m Model) updateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewMenu() string {
-		if m.quitting {
-			return m.message + "\n"
-		}
-		render := renderHeader("MAIN MENU")
-		render += renderMainMenu() + "\n" + m.message
+	if m.quitting {
+		return m.message + "\n"
+	}
+	render := renderHeader("MAIN MENU")
+	render += renderMainMenu()
 	render += renderFooter("[Q]uit")
+	render += "\n\n" + m.message
 
 	return render
 }
 
 func renderMainMenu() string {
 	return fmt.Sprintf(
-`[%d] Add
+		`[%d] Add
 [%d] List
 [%d] View
 [%d] Edit

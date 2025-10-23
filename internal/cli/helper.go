@@ -28,6 +28,6 @@ func renderHeader(header string) string {
 }
 
 func renderFooter(footer string) string {
-	hint := "\n-------------------------------------------------------\n" + footer
+	hint := "\n\n-------------------------------------------------------\n" + footer
 	return hint
 }
