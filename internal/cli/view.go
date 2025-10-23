@@ -13,7 +13,7 @@ func (m Model) update_view(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
 	case "m", "M", tea.KeyEnter.String():
 		m.state = optMenu
-	case "v", "V", tea.KeyEnter.String():
+	case "b", "B", tea.KeyEnter.String():
 		m.textInput.SetValue("")
 		m.inputState = true
 	case "ctrl+c", "q", "Q":
@@ -30,6 +30,6 @@ func (m Model) view_view() string {
 	}
 	render := renderHeader("Employee Details")
 	render += m.selectedEmployee.DetailString()
-	render += renderFooter("[Q]uit. [M]ain menu. [V]iew employee details again")
+	render += renderFooter("[Q]uit. [M]ain menu. [B]ack")
 	return render
 }
