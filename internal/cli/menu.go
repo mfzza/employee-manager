@@ -7,7 +7,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) updateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) update_menu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
 	case strconv.Itoa(int(optAdd)):
 		m.message = "You chose: Add"
@@ -15,7 +15,7 @@ func (m Model) updateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.message = "You chose: List"
 		m.state = optList
 		// init table when user select: List
-		m.table = m.createTable("id")
+		m.table = m.initTable("id")
 	case strconv.Itoa(int(optView)):
 		m.message = "You chose: View"
 		m.state = optInputId
@@ -34,7 +34,7 @@ func (m Model) updateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m Model) viewMenu() string {
+func (m Model) view_menu() string {
 	if m.quitting {
 		return m.message + "\n"
 	}

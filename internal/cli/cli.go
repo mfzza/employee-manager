@@ -45,9 +45,9 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// check what state we are in
 		switch m.state {
 		case optMenu:
-			return m.updateMenu(msg)
+			return m.update_menu(msg)
 		case optList:
-			return m.updateList(msg)
+			return m.update_list(msg)
 		case optView:
 			return m.update_view(msg)
 		case optInputId:
@@ -61,10 +61,10 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m Model) View() string {
 	switch m.state {
 	case optMenu:
-		return m.viewMenu()
+		return m.view_menu()
 
 	case optList:
-		return m.viewList()
+		return m.view_list()
 
 	case optView:
 		return m.view_view()

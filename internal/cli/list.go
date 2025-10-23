@@ -7,7 +7,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) updateList(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) update_list(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	// NOTE: this function is called only on keypress trigger,
 	// which is correct for handle shortcut,
 	// but not sure if update table should be done here
@@ -20,13 +20,13 @@ func (m Model) updateList(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.state = optMenu
 		return m, nil
 	case "i", "I":
-		m.table = m.createTable("id")
+		m.table = m.initTable("id")
 		return m, nil
 	case "n", "N":
-		m.table = m.createTable("name")
+		m.table = m.initTable("name")
 		return m, nil
 	case "p", "P":
-		m.table = m.createTable("phone")
+		m.table = m.initTable("phone")
 		return m, nil
 	case "q", "Q", "ctrl+c":
 		m.quitting = true
@@ -35,14 +35,14 @@ func (m Model) updateList(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m Model) viewList() string {
+func (m Model) view_list() string {
 	render := renderHeader("LIST")
-	render += m.table.View() + "\n"
+	render += m.table.View()
 	render += renderFooter("sort by: [I]d, [N]ame or [P]hone. [Q]uit. [M]ain menu")
 	return render
 }
 
-func (m Model) createTable(sorting string) table.Model {
+func (m Model) initTable(sorting string) table.Model {
 	columns := []table.Column{
 		{Title: "ID", Width: 3},
 		{Title: "Name", Width: 20},
