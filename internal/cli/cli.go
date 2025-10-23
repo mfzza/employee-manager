@@ -50,6 +50,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m.update_list(msg)
 		case optView:
 			return m.update_view(msg)
+		case optDelete:
+			return m.update_delete(msg)
 		}
 	}
 
@@ -66,6 +68,9 @@ func (m Model) View() string {
 
 	case optView:
 		return m.view_view()
+
+	case optDelete:
+		return m.view_delete()
 	}
 
 	return ""
