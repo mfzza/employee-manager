@@ -18,6 +18,8 @@ func (m Model) updateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.table = m.createTable("id")
 	case strconv.Itoa(int(optView)):
 		m.message = "You chose: View"
+		m.state = optInputId
+		m.textInput = m.init_textInputId()
 	case strconv.Itoa(int(optEdit)):
 		m.message = "You chose: Edit"
 	case strconv.Itoa(int(optDelete)):

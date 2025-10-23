@@ -4,6 +4,7 @@ import (
 	"employee-management/internal/employee"
 
 	"github.com/charmbracelet/bubbles/table"
+	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -16,6 +17,7 @@ const (
 	optView
 	optEdit
 	optDelete
+	optInputId
 )
 
 type Model struct {
@@ -24,6 +26,8 @@ type Model struct {
 	quitting bool
 	service  *employee.Service
 	table    table.Model
+	textInput    textinput.Model
+	selectedEmployee   employee.Employee
 }
 
 func InitialModel(s *employee.Service) Model {
@@ -44,6 +48,10 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m.updateMenu(msg)
 		case optList:
 			return m.updateList(msg)
+		case optView:
+			return m.update_view(msg)
+		case optInputId:
+			return m.update_inputId(msg)
 		}
 	}
 
@@ -57,6 +65,13 @@ func (m Model) View() string {
 
 	case optList:
 		return m.viewList()
+
+	case optView:
+		return m.view_view()
+
+	case optInputId:
+		return m.view_inputId()
 	}
+
 	return ""
 }

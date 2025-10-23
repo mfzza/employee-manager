@@ -49,14 +49,12 @@ func (s *Service) List(sorting string) []employeeSimple {
 	return list
 }
 
-func (s *Service) View(id int) error{
+func (s *Service) GetEmployeeById(id int) ( Employee, error ){
 	idx := s.indexFromId(id)
 	if idx < 0 {
-		return fmt.Errorf("Cant view data, id: %d not exists", id)
+		return Employee{}, fmt.Errorf("Cant view employee, id: %d not exists", id)
 	}
-
-	fmt.Println(s.Employees[idx].DetailString())
-	return nil
+	return s.Employees[idx], nil
 }
 
 // TODO: implement this, should be able to let user select what they want to edit, maybe wait for cli implementation?
