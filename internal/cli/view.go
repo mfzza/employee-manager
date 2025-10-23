@@ -13,7 +13,7 @@ func (m Model) update_view(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
 	case "m", "M", tea.KeyEnter.String():
 		m.state = optMenu
-	case "b", "B", tea.KeyEnter.String():
+	case "b", "B":
 		m.textInput.SetValue("")
 		m.inputState = true
 	case "ctrl+c", "q", "Q":
