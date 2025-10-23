@@ -40,7 +40,8 @@ type Model struct {
 }
 
 func InitialModel(s *employee.Service) Model {
-	return Model{service: s, state: optMenu, employeeInfoInput: make([]textinput.Model, 4)}
+	// return Model{service: s, state: optMenu, employeeInfoInput: make([]textinput.Model, 4)}
+	return Model{service: s, state: optMenu}
 }
 
 func (m Model) Init() tea.Cmd {
@@ -54,6 +55,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch m.state {
 		case optMenu:
 			return m.update_menu(msg)
+		case optAdd:
+			return m.update_add(msg)
 		case optList:
 			return m.update_list(msg)
 		case optView:
@@ -70,6 +73,9 @@ func (m Model) View() string {
 	switch m.state {
 	case optMenu:
 		return m.view_menu()
+
+	case optAdd:
+		return m.view_add()
 
 	case optList:
 		return m.view_list()

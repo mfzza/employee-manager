@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	repo := employee.NewRepository("./MOCK_DATA.json")
+	repo := employee.NewRepository("./test.json")
 	srv := employee.NewService(*repo)
 
 	var err error

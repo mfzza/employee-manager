@@ -9,13 +9,19 @@ import (
 
 func (m Model) update_menu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
+	// NOTE: remove unnecessary message
 	case strconv.Itoa(int(optAdd)):
 		m.message = "You chose: Add"
+		m.state = optAdd
+		m.inputState = true
+		m.employeeInfoInput = m.init_textInputEmployee()
+
 	case strconv.Itoa(int(optList)):
 		m.message = "You chose: List"
 		m.state = optList
 		// init table when user select: List
 		m.table = m.initTable("id")
+
 	case strconv.Itoa(int(optView)):
 		m.message = "You chose: View"
 		m.inputState = true
@@ -24,6 +30,10 @@ func (m Model) update_menu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	case strconv.Itoa(int(optEdit)):
 		m.message = "You chose: Edit"
+		m.inputState = true
+		m.state = optEdit
+		m.idInput = m.init_textInputId()
+
 	case strconv.Itoa(int(optDelete)):
 		m.message = "You chose: Delete"
 		m.inputState = true
