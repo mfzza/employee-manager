@@ -25,9 +25,11 @@ func (m Model) update_inputId(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 			m.message = err.Error()
 			return m, cmd
 		}
-		// TODO: should be previous state, not hardcoded into optView
 		m.inputState = false
 
+	case tea.KeyEsc.String():
+		m.inputState = false
+		m.state = optMenu
 	case "ctrl+c":
 		m.quitting = true
 		return m, tea.Quit
@@ -37,9 +39,10 @@ func (m Model) update_inputId(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) view_inputId() string {
-	render := renderHeader("VIEW")
+	render := renderHeader("Input Employee ID")
 	render += m.textInput.View()
-	render += renderFooter("")
+	render += renderFooter("[Esc] Main menu. [ctrl+c] Exit")
+	render += "\n\n"
 	render += m.message
 	return render
 }
