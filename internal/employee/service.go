@@ -25,33 +25,20 @@ func NewService(repo Repository) *Service {
 }
 
 func (s *Service) AddEmployee(name string, phone string, position string, email string) error {
-	var errs []error
-	var err error
-
-	// return err, will also trim whitespace for name and position
-	name, err = validateName(name)
-	if err != nil {
-		errs = append(errs, err)
-	}
-	if err := validatePhone(phone); err != nil {
-		errs = append(errs, err)
-	}
-	position, err = validatePosition(position)
-	if err != nil {
-		errs = append(errs, err)
-	}
-	if err := validateEmail(email); err != nil {
-		errs = append(errs, err)
+	e := &Employee{
+		Name:     name,
+		Phone:    phone,
+		Position: position,
+		Email:    email,
 	}
 
-	if len(errs) > 0 {
-		return errors.Join(errs...)
+	if err := validateEmployeeInfo(e); err != nil {
+		return err
 	}
 
 	s.updateLastId()
-	addedEmployee := NewEmployee(s.NextId, name, phone, position, email)
-
-	s.Employees = append(s.Employees, *addedEmployee)
+	e.Id = s.NextId
+	s.Employees = append(s.Employees, *e)
 
 	s.Repo.Save(s.Employees)
 	return nil
@@ -103,6 +90,36 @@ func (s *Service) DeleteEmployee(id int) error {
 }
 
 // helper
+func validateEmployeeInfo(e *Employee) error {
+	var errs []error
+	var err error
+
+	// return err, will also trim whitespace for name and position
+	e.Name, err = validateName(e.Name)
+	if err != nil {
+		errs = append(errs, err)
+	}
+	if err := validatePhone(e.Phone); err != nil {
+		errs = append(errs, err)
+	}
+	e.Position, err = validatePosition(e.Position)
+	if err != nil {
+		errs = append(errs, err)
+	}
+	if err := validateEmail(e.Email); err != nil {
+		errs = append(errs, err)
+	}
+
+	if len(errs) > 0 {
+		return errors.Join(errs...)
+	}
+	return nil
+}
+
+// NOTE: maybe try to make validate ID as helper
+// func (s *Service) validateId() error {
+// }
+
 func (s *Service) indexFromId(id int) int {
 	for i, e := range s.Employees {
 		if e.Id == id {
