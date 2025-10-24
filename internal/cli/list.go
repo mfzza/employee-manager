@@ -7,7 +7,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) update_list(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) updateStateList(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	// NOTE: this function is called only on keypress trigger,
 	// which is correct for handle shortcut,
 	// but not sure if update table should be done here
@@ -35,7 +35,7 @@ func (m Model) update_list(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m Model) view_list() string {
+func (m Model) viewStateList() string {
 	render := renderHeader("LIST")
 	render += m.table.View()
 	render += renderFooter("sort by: [I]d, [N]ame or [P]hone. [Q]uit. [M]ain menu")
@@ -49,7 +49,7 @@ func (m Model) initTable(sorting string) table.Model {
 		{Title: "Phone", Width: 20},
 	}
 
-	employees := m.service.List(sorting)
+	employees := m.service.GetAllEmployee(sorting)
 	// Convert to []table.Row
 	var rows []table.Row
 	for _, e := range employees {

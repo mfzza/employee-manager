@@ -5,12 +5,12 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) update_inputEmployee(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) updateEmployeeInputs(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
-	totalInput := len(m.employeeInfoInput)
+	totalInput := len(m.employeeInputs)
 	cmds := make([]tea.Cmd, totalInput)
-	for i := range m.employeeInfoInput {
-		m.employeeInfoInput[i], cmds[i] = m.employeeInfoInput[i].Update(msg)
+	for i := range m.employeeInputs {
+		m.employeeInputs[i], cmds[i] = m.employeeInputs[i].Update(msg)
 	}
 
 	switch msg.String() {
@@ -42,11 +42,11 @@ func (m Model) update_inputEmployee(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		}
 
 		cmds := make([]tea.Cmd, totalInput)
-		for i := range m.employeeInfoInput {
+		for i := range m.employeeInputs {
 			if i == m.focusedInfo {
-				cmds[i] = m.employeeInfoInput[i].Focus()
+				cmds[i] = m.employeeInputs[i].Focus()
 			} else {
-				m.employeeInfoInput[i].Blur()
+				m.employeeInputs[i].Blur()
 			}
 		}
 
@@ -57,11 +57,11 @@ func (m Model) update_inputEmployee(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 }
 
-func (m Model) view_inputEmployee() string {
+func (m Model) viewEmployeeInputs() string {
 	// render := renderHeader("Input Employee Information")
 	render := ""
-	for i := range m.employeeInfoInput {
-		render += m.employeeInfoInput[i].View() + "\n"
+	for i := range m.employeeInputs {
+		render += m.employeeInputs[i].View() + "\n"
 	}
 	render += renderFooter("[Enter] Proceed. [Esc] Main menu. [ctrl+c] Quit")
 	render += "\n\n"
@@ -69,7 +69,7 @@ func (m Model) view_inputEmployee() string {
 	return render
 }
 
-func (m Model) init_textInputEmployee() []textinput.Model {
+func (m Model) initEmployeeInputs() []textinput.Model {
 	// Initialize inputs
 	tis := make([]textinput.Model, 4)
 	var t textinput.Model

@@ -23,14 +23,14 @@ func NewService(repo Repository) *Service {
 	return &Service{Employees: []Employee{}, Repo: &repo, NextId: 1}
 }
 
-func (s *Service) Add(name string, phone string, position string, email string) {
+func (s *Service) AddEmployee(name string, phone string, position string, email string) {
 	s.updateLastId()
 	addedEmployee := NewEmployee(s.NextId, name, phone, position, email)
 
 	s.Employees = append(s.Employees, *addedEmployee)
 }
 
-func (s *Service) List(sorting string) []employeeSimple {
+func (s *Service) GetAllEmployee(sorting string) []employeeSimple {
 	var list []employeeSimple
 	for _, e := range s.Employees {
 		list = append(list, employeeSimple{e.Id, e.Name, e.Phone})
@@ -60,7 +60,7 @@ func (s *Service) GetEmployeeById(id int) ( Employee, error ){
 // TODO: implement this, should be able to let user select what they want to edit, maybe wait for cli implementation?
 func (s *Service) Edit() {}
 
-func (s *Service) Del(id int) error {
+func (s *Service) DeleteEmployee(id int) error {
 	idx := s.indexFromId(id)
 	if idx < 0 {
 		return fmt.Errorf("Cant delete data, id: %d not exists", id)

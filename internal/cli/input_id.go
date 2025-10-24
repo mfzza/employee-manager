@@ -7,7 +7,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) update_inputId(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) updateIdInput(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 	m.idInput, cmd = m.idInput.Update(msg)
 
@@ -38,7 +38,7 @@ func (m Model) update_inputId(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m Model) view_inputId() string {
+func (m Model) viewInputId() string {
 	render := renderHeader("Input Employee ID")
 	render += m.idInput.View()
 	render += renderFooter("[Esc] Main menu. [ctrl+c] Quit")
@@ -47,7 +47,7 @@ func (m Model) view_inputId() string {
 	return render
 }
 
-func (m Model) init_textInputId() textinput.Model {
+func (m Model) initInputId() textinput.Model {
 	ti := textinput.New()
 	ti.Prompt = "enter ID: "
 	ti.Focus()

@@ -7,14 +7,14 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) update_menu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) updateStateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
 	// NOTE: remove unnecessary message
 	case strconv.Itoa(int(optAdd)):
 		m.message = "You chose: Add"
 		m.state = optAdd
 		m.inputState = true
-		m.employeeInfoInput = m.init_textInputEmployee()
+		m.employeeInputs = m.initEmployeeInputs()
 
 	case strconv.Itoa(int(optList)):
 		m.message = "You chose: List"
@@ -26,19 +26,19 @@ func (m Model) update_menu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.message = "You chose: View"
 		m.inputState = true
 		m.state = optView
-		m.idInput = m.init_textInputId()
+		m.idInput = m.initInputId()
 
 	case strconv.Itoa(int(optEdit)):
 		m.message = "You chose: Edit"
 		m.inputState = true
 		m.state = optEdit
-		m.idInput = m.init_textInputId()
+		m.idInput = m.initInputId()
 
 	case strconv.Itoa(int(optDelete)):
 		m.message = "You chose: Delete"
 		m.inputState = true
 		m.state = optDelete
-		m.idInput = m.init_textInputId()
+		m.idInput = m.initInputId()
 
 	case "q", "Q", "ctrl+c":
 		m.message = "Exiting program..."
@@ -50,7 +50,7 @@ func (m Model) update_menu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m Model) view_menu() string {
+func (m Model) viewStateMenu() string {
 	if m.quitting {
 		return m.message + "\n"
 	}

@@ -4,15 +4,15 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) update_delete(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) updateStateDelete(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	if m.inputState {
-		return m.update_inputId(msg)
+		return m.updateIdInput(msg)
 	}
 
 	switch msg.String() {
 	case "y", "Y":
-		m.service.Del(m.selectedEmployee.Id)
+		m.service.DeleteEmployee(m.selectedEmployee.Id)
 		m.state = optMenu
 	case "n", "N":
 		m.state = optMenu
@@ -25,9 +25,9 @@ func (m Model) update_delete(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m Model) view_delete() string {
+func (m Model) viewStateDelete() string {
 	if m.inputState {
-		return m.view_inputId()
+		return m.viewInputId()
 	}
 	render := renderHeader("Delete Employee")
 	render += m.selectedEmployee.DetailString()

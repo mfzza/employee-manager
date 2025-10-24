@@ -4,10 +4,10 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Model) update_view(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) updateStateView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	if m.inputState {
-		return m.update_inputId(msg)
+		return m.updateIdInput(msg)
 	}
 
 	switch msg.String() {
@@ -24,9 +24,9 @@ func (m Model) update_view(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m Model) view_view() string {
+func (m Model) viewStateView() string {
 	if m.inputState {
-		return m.view_inputId()
+		return m.viewInputId()
 	}
 	render := renderHeader("Employee Details")
 	render += m.selectedEmployee.DetailString()

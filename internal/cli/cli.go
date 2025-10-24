@@ -25,16 +25,16 @@ type Model struct {
 	quitting bool
 	service  *employee.Service
 
-	// handle list
+	// handle list state
 	table table.Model
 
-	// handle id input (view, edit, delete)
+	// handle id input (view, edit, delete state)
 	inputState bool
 	idInput    textinput.Model
 
-	// handle employee input (name, email and so on) (add and edit)
-	employeeInfoInput []textinput.Model
-	focusedInfo       int
+	// handle employee input (name, email and so on) (add and edit state)
+	employeeInputs []textinput.Model
+	focusedInfo    int
 
 	selectedEmployee employee.Employee
 }
@@ -54,15 +54,15 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// check what state we are in
 		switch m.state {
 		case optMenu:
-			return m.update_menu(msg)
+			return m.updateStateMenu(msg)
 		case optAdd:
-			return m.update_add(msg)
+			return m.updateStateAdd(msg)
 		case optList:
-			return m.update_list(msg)
+			return m.updateStateList(msg)
 		case optView:
-			return m.update_view(msg)
+			return m.updateStateView(msg)
 		case optDelete:
-			return m.update_delete(msg)
+			return m.updateStateDelete(msg)
 		}
 	}
 
@@ -72,19 +72,19 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m Model) View() string {
 	switch m.state {
 	case optMenu:
-		return m.view_menu()
+		return m.viewStateMenu()
 
 	case optAdd:
-		return m.view_add()
+		return m.viewStateAdd()
 
 	case optList:
-		return m.view_list()
+		return m.viewStateList()
 
 	case optView:
-		return m.view_view()
+		return m.viewStateView()
 
 	case optDelete:
-		return m.view_delete()
+		return m.viewStateDelete()
 	}
 
 	return ""
