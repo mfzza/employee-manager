@@ -2,7 +2,6 @@ package cli
 
 import (
 	"fmt"
-	"strconv"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -10,31 +9,31 @@ import (
 func (m Model) updateStateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
 	// NOTE: remove unnecessary message
-	case strconv.Itoa(int(optAdd)):
+	case fmt.Sprint(optAdd):
 		m.message = "You chose: Add"
-		m.state = optAdd
 		m.inputState = true
+		m.state = optAdd
 		m.employeeInputs = m.initEmployeeInputs()
 
-	case strconv.Itoa(int(optList)):
+	case fmt.Sprint(optList):
 		m.message = "You chose: List"
 		m.state = optList
 		// init table when user select: List
 		m.table = m.initTable("id")
 
-	case strconv.Itoa(int(optView)):
+	case fmt.Sprint(optView):
 		m.message = "You chose: View"
 		m.inputState = true
 		m.state = optView
 		m.idInput = m.initInputId()
 
-	case strconv.Itoa(int(optEdit)):
+	case fmt.Sprint(optEdit):
 		m.message = "You chose: Edit"
 		m.inputState = true
 		m.state = optEdit
 		m.idInput = m.initInputId()
 
-	case strconv.Itoa(int(optDelete)):
+	case fmt.Sprint(optDelete):
 		m.message = "You chose: Delete"
 		m.inputState = true
 		m.state = optDelete
@@ -44,8 +43,9 @@ func (m Model) updateStateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.message = "Exiting program..."
 		m.quitting = true
 		return m, tea.Quit
+
 	default:
-		m.message = "Invalid option. Press 0-6."
+		m.message = "Invalid option. Please select one of options above."
 	}
 	return m, nil
 }
