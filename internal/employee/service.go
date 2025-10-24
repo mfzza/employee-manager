@@ -44,6 +44,7 @@ func (s *Service) AddEmployee(name string, phone string, position string, email 
 
 	s.Employees = append(s.Employees, *addedEmployee)
 
+	s.Repo.Save(s.Employees)
 	return nil
 }
 
@@ -87,6 +88,8 @@ func (s *Service) DeleteEmployee(id int) error {
 	}
 
 	s.Employees = append(s.Employees[:idx], s.Employees[idx+1:]...)
+
+	s.Repo.Save(s.Employees)
 	return nil
 }
 
