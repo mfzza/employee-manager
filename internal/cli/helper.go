@@ -5,6 +5,16 @@ import (
 	"strings"
 )
 
+func renderMainMenu() string {
+	return fmt.Sprintf(
+		`[%d] Add
+[%d] List
+[%d] View
+[%d] Edit
+[%d] Delete
+`, optAdd, optList, optView, optEdit, optDelete)
+}
+
 func renderHeader(header string) string {
 	boxWidth := 40
 	header = " " + header + " "
@@ -31,3 +41,4 @@ func renderFooter(footer string) string {
 	hint := "\n\n-------------------------------------------------------\n" + footer
 	return hint
 }
+

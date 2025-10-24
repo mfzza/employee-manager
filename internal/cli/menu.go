@@ -62,12 +62,3 @@ func (m Model) viewStateMenu() string {
 	return render
 }
 
-func renderMainMenu() string {
-	return fmt.Sprintf(
-		`[%d] Add
-[%d] List
-[%d] View
-[%d] Edit
-[%d] Delete
-`, optAdd, optList, optView, optEdit, optDelete)
-}
