@@ -45,7 +45,7 @@ func (m Model) viewStateList() string {
 func (m Model) initTable(sorting string) table.Model {
 	columns := []table.Column{
 		{Title: "ID", Width: 3},
-		{Title: "Name", Width: 20},
+		{Title: "Name", Width: 30},
 		{Title: "Phone", Width: 20},
 	}
 

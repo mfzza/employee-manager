@@ -82,7 +82,7 @@ func (m Model) initEmployeeInputs() []textinput.Model {
 
 	for i := range tis {
 		ti = textinput.New()
-		ti.CharLimit = 32
+		ti.CharLimit = 50
 
 		switch i {
 		case 0:
