@@ -26,12 +26,21 @@ func NewService(repo Repository) *Service {
 
 func (s *Service) AddEmployee(name string, phone string, position string, email string) error {
 	var errs []error
+	var err error
 
-	// return err
-	if err := validateEmail(email); err != nil {
+	// return err, will also trim whitespace for name and position
+	name, err = validateName(name)
+	if err != nil {
 		errs = append(errs, err)
 	}
 	if err := validatePhone(phone); err != nil {
+		errs = append(errs, err)
+	}
+	position, err = validatePosition(position)
+	if err != nil {
+		errs = append(errs, err)
+	}
+	if err := validateEmail(email); err != nil {
 		errs = append(errs, err)
 	}
 
