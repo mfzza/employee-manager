@@ -3,7 +3,7 @@ package cli
 import tea "github.com/charmbracelet/bubbletea"
 
 func (m Model) updateStateAdd(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
-	if m.inputState {
+	if m.inputState == inputEmployeeState {
 		return m.updateEmployeeInputs(msg)
 	}
 
@@ -14,7 +14,7 @@ func (m Model) updateStateAdd(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.employeeInputs[3].Value(),
 		); err != nil {
 		m.message = err.Error()
-		m.inputState = true
+		m.inputState = inputEmployeeState
 		return m, nil
 	}
 

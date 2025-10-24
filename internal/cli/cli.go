@@ -19,6 +19,13 @@ const (
 	optDelete
 )
 
+type inputState int
+const (
+	inputDisabled inputState = iota
+	inputIdState
+	inputEmployeeState
+)
+
 type Model struct {
 	state    optState
 	message  string
@@ -29,7 +36,7 @@ type Model struct {
 	table table.Model
 
 	// handle id input (view, edit, delete state)
-	inputState bool
+	inputState inputState
 	idInput    textinput.Model
 
 	// handle employee input (name, email and so on) (add and edit state)

@@ -25,10 +25,10 @@ func (m Model) updateIdInput(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 			m.message = err.Error()
 			return m, cmd
 		}
-		m.inputState = false
+		m.inputState = inputDisabled
 
 	case tea.KeyEsc.String():
-		m.inputState = false
+		m.inputState = inputDisabled
 		m.state = optMenu
 	case "ctrl+c":
 		m.quitting = true

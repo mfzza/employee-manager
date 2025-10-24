@@ -11,7 +11,7 @@ func (m Model) updateStateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	// NOTE: remove unnecessary message
 	case fmt.Sprint(optAdd):
 		m.message = "You chose: Add"
-		m.inputState = true
+		m.inputState = inputEmployeeState
 		m.state = optAdd
 		m.employeeInputs = m.initEmployeeInputs()
 
@@ -23,19 +23,19 @@ func (m Model) updateStateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	case fmt.Sprint(optView):
 		m.message = "You chose: View"
-		m.inputState = true
+		m.inputState = inputIdState
 		m.state = optView
 		m.idInput = m.initInputId()
 
 	case fmt.Sprint(optEdit):
 		m.message = "You chose: Edit"
-		m.inputState = true
+		m.inputState = inputIdState
 		m.state = optEdit
 		m.idInput = m.initInputId()
 
 	case fmt.Sprint(optDelete):
 		m.message = "You chose: Delete"
-		m.inputState = true
+		m.inputState = inputIdState
 		m.state = optDelete
 		m.idInput = m.initInputId()
 

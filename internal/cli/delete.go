@@ -6,7 +6,7 @@ import (
 
 func (m Model) updateStateDelete(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
-	if m.inputState {
+	if m.inputState == inputIdState {
 		return m.updateIdInput(msg)
 	}
 
@@ -26,7 +26,7 @@ func (m Model) updateStateDelete(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewStateDelete() string {
-	if m.inputState {
+	if m.inputState == inputIdState {
 		return m.viewInputId()
 	}
 	render := renderHeader("Delete Employee")

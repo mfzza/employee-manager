@@ -15,14 +15,14 @@ func (m Model) updateEmployeeInputs(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	switch msg.String() {
 	case tea.KeyEsc.String():
-		m.inputState = false
+		m.inputState = inputDisabled
 		m.state = optMenu
 	case "ctrl+c":
 		m.quitting = true
 		return m, tea.Quit
 	// TODO: handle adding employee here
 	case tea.KeyEnter.String():
-		m.inputState = false
+		m.inputState = inputDisabled
 		// NOTE: it working but look weird
 		if m.state == optAdd {
 			return m.updateStateAdd(msg)

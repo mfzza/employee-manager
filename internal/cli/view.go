@@ -6,7 +6,7 @@ import (
 
 func (m Model) updateStateView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
-	if m.inputState {
+	if m.inputState == inputIdState {
 		return m.updateIdInput(msg)
 	}
 
@@ -15,7 +15,7 @@ func (m Model) updateStateView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.state = optMenu
 	case "b", "B":
 		m.idInput.SetValue("")
-		m.inputState = true
+		m.inputState = inputDisabled
 	case "ctrl+c", "q", "Q":
 		m.quitting = true
 		return m, tea.Quit
@@ -25,7 +25,7 @@ func (m Model) updateStateView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewStateView() string {
-	if m.inputState {
+	if m.inputState == inputIdState {
 		return m.viewInputId()
 	}
 	render := renderHeader("Employee Details")
