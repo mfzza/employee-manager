@@ -18,7 +18,7 @@ type employeeSimple struct {
 	Phone string
 }
 
-func NewService(repo *Repository) ( *Service, error ) {
+func NewService(repo *Repository) (*Service, error) {
 	employees, err := repo.Load()
 	if err != nil {
 		return nil, fmt.Errorf("failed to load employees: %w", err)
@@ -42,8 +42,7 @@ func (s *Service) AddEmployee(name string, phone string, position string, email 
 	e.Id = s.NextId
 	s.Employees = append(s.Employees, *e)
 
-	s.Repo.Save(s.Employees)
-	return nil
+	return s.Repo.Save(s.Employees)
 }
 
 func (s *Service) GetAllEmployee(sorting string) []employeeSimple {
@@ -98,8 +97,7 @@ func (s *Service) ModifyEmployee(id int, name string, phone string, position str
 	s.Employees[idx].Position = position
 	s.Employees[idx].Email = email
 
-	s.Repo.Save(s.Employees)
-	return nil
+	return s.Repo.Save(s.Employees)
 }
 
 func (s *Service) DeleteEmployee(id int) error {
@@ -110,8 +108,7 @@ func (s *Service) DeleteEmployee(id int) error {
 
 	s.Employees = append(s.Employees[:idx], s.Employees[idx+1:]...)
 
-	s.Repo.Save(s.Employees)
-	return nil
+	return s.Repo.Save(s.Employees)
 }
 
 // helper
