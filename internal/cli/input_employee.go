@@ -23,7 +23,10 @@ func (m Model) updateEmployeeInputs(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	// TODO: handle adding employee here
 	case tea.KeyEnter.String():
 		m.inputState = false
-		// return m, tea.Quit
+		// NOTE: it working but look weird
+		if m.state == optAdd {
+			return m.updateStateAdd(msg)
+		}
 
 	case "tab", "shift+tab", "down", "up":
 		s := msg.String()

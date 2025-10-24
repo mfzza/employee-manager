@@ -1,6 +1,7 @@
 package employee
 
 import (
+	"errors"
 	"fmt"
 	"sort"
 )
@@ -23,11 +24,27 @@ func NewService(repo Repository) *Service {
 	return &Service{Employees: []Employee{}, Repo: &repo, NextId: 1}
 }
 
-func (s *Service) AddEmployee(name string, phone string, position string, email string) {
+func (s *Service) AddEmployee(name string, phone string, position string, email string) error {
+	var errs []error
+
+	// return err
+	if err := validateEmail(email); err != nil {
+		errs = append(errs, err)
+	}
+	if err := validatePhone(phone); err != nil {
+		errs = append(errs, err)
+	}
+
+	if len(errs) > 0 {
+		return errors.Join(errs...)
+	}
+
 	s.updateLastId()
 	addedEmployee := NewEmployee(s.NextId, name, phone, position, email)
 
 	s.Employees = append(s.Employees, *addedEmployee)
+
+	return nil
 }
 
 func (s *Service) GetAllEmployee(sorting string) []employeeSimple {
@@ -41,15 +58,18 @@ func (s *Service) GetAllEmployee(sorting string) []employeeSimple {
 	sortByName := func(i, j int) bool { return list[i].Name < list[j].Name }
 
 	switch sorting {
-	case "name": sort.Slice(list, sortByName)
-	case "phone": sort.Slice(list, sortByPhone)
-	default: sort.Slice(list, sortById) // NOTE: can i just remove this? since in json should be already sorted
+	case "name":
+		sort.Slice(list, sortByName)
+	case "phone":
+		sort.Slice(list, sortByPhone)
+	default:
+		sort.Slice(list, sortById) // NOTE: can i just remove this? since in json should be already sorted
 	}
 
 	return list
 }
 
-func (s *Service) GetEmployeeById(id int) ( Employee, error ){
+func (s *Service) GetEmployeeById(id int) (Employee, error) {
 	idx := s.indexFromId(id)
 	if idx < 0 {
 		return Employee{}, fmt.Errorf("Cant view employee, id: %d not exists", id)
