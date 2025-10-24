@@ -49,7 +49,7 @@ func (m Model) updateIdInput(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m Model) viewInputId() string {
+func (m Model) viewIdInput() string {
 	render := renderHeader("Input Employee ID")
 	render += m.idInput.View()
 	render += renderFooter("[Esc] Main menu. [ctrl+c] Quit")
@@ -58,7 +58,7 @@ func (m Model) viewInputId() string {
 	return render
 }
 
-func (m Model) initInputId() textinput.Model {
+func (m Model) initIdInput() textinput.Model {
 	ti := textinput.New()
 	ti.Prompt = "enter ID: "
 	ti.Focus()

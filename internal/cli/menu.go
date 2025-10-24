@@ -25,19 +25,19 @@ func (m Model) updateStateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.message = "You chose: View"
 		m.inputState = inputIdState
 		m.state = optView
-		m.idInput = m.initInputId()
+		m.idInput = m.initIdInput()
 
 	case fmt.Sprint(optEdit):
 		m.message = "You chose: Edit"
 		m.inputState = inputIdState
 		m.state = optEdit
-		m.idInput = m.initInputId()
+		m.idInput = m.initIdInput()
 
 	case fmt.Sprint(optDelete):
 		m.message = "You chose: Delete"
 		m.inputState = inputIdState
 		m.state = optDelete
-		m.idInput = m.initInputId()
+		m.idInput = m.initIdInput()
 
 	case "q", "Q", "ctrl+c":
 		m.message = "Exiting program..."

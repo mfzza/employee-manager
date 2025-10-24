@@ -32,7 +32,7 @@ func (m Model) updateStateEdit(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 func (m Model) viewStateEdit() string {
 	switch m.inputState {
 	case inputIdState:
-		return m.viewInputId()
+		return m.viewIdInput()
 	}
 	render := renderHeader("Update Employee Information")
 	// render += "ID for new employee is \n"

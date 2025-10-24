@@ -26,7 +26,7 @@ func (m Model) updateStateView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 func (m Model) viewStateView() string {
 	if m.inputState == inputIdState {
-		return m.viewInputId()
+		return m.viewIdInput()
 	}
 	render := renderHeader("Employee Details")
 	render += m.selectedEmployee.DetailString()

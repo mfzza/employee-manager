@@ -27,7 +27,7 @@ func (m Model) updateStateDelete(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 func (m Model) viewStateDelete() string {
 	if m.inputState == inputIdState {
-		return m.viewInputId()
+		return m.viewIdInput()
 	}
 	render := renderHeader("Delete Employee")
 	render += m.selectedEmployee.DetailString()
