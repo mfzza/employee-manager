@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"employee-management/internal/employee"
 	"employee-management/internal/cli"
+	"employee-management/internal/employee"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -16,7 +16,8 @@ func main() {
 	var err error
 	srv.Employees, err = repo.Load()
 	if err != nil {
-		fmt.Println("Error loading file:", err)
+		fmt.Println("Error loading employees:", err)
+		os.Exit(1)
 	}
 
 	p := tea.NewProgram(cli.InitialModel(srv))
