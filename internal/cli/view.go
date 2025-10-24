@@ -15,7 +15,7 @@ func (m Model) updateStateView(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.state = optMenu
 	case "b", "B":
 		m.idInput.SetValue("")
-		m.inputState = inputDisabled
+		m.inputState = inputIdState
 	case "ctrl+c", "q", "Q":
 		m.quitting = true
 		return m, tea.Quit
