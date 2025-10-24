@@ -23,7 +23,7 @@ func (m Model) updateEmployeeInputs(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case tea.KeyEnter.String():
 		m.inputState = inputDisabled
 
-		// NOTE: it working but look weird
+		// NOTE: it working but look bit odds
 		switch m.state {
 		case optAdd:
 			return m.updateStateAdd(msg)

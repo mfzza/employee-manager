@@ -8,7 +8,6 @@ import (
 
 func (m Model) updateStateMenu(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
-	// NOTE: remove unnecessary message
 	case fmt.Sprint(optAdd):
 		m.message = "You chose: Add"
 		m.inputState = inputEmployeeState

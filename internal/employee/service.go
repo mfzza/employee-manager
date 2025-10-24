@@ -7,7 +7,7 @@ import (
 )
 
 type Service struct {
-	Employees []Employee // TODO: should not store it in-memory(?)
+	Employees []Employee
 	Repo      *Repository
 	NextId    int
 }
@@ -61,7 +61,7 @@ func (s *Service) GetAllEmployee(sorting string) []employeeSimple {
 	case "phone":
 		sort.Slice(list, sortByPhone)
 	default:
-		sort.Slice(list, sortById) // NOTE: can i just remove this? since in json should be already sorted
+		sort.Slice(list, sortById)
 	}
 
 	return list
@@ -137,10 +137,6 @@ func validateEmployeeInfo(e *Employee) error {
 	}
 	return nil
 }
-
-// NOTE: maybe try to make validate ID as helper
-// func (s *Service) validateId() error {
-// }
 
 func (s *Service) indexFromId(id int) int {
 	for i, e := range s.Employees {
