@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	repo := employee.NewRepository("./test.json")
+	repo := employee.NewRepository("./MOCK_DATA.json")
 	srv, err := employee.NewService(repo)
 	if err != nil {
 		fmt.Println("Error loading employees:", err)

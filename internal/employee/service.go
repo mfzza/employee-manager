@@ -6,6 +6,8 @@ import (
 	"sort"
 )
 
+const maxId = 999
+
 type Service struct {
 	Employees []Employee
 	Repo      *Repository
@@ -39,6 +41,9 @@ func (s *Service) AddEmployee(name string, phone string, position string, email 
 	}
 
 	s.updateLastId()
+	if s.NextId >= maxId {
+		return fmt.Errorf("maximum employee ID (999) reached")
+	}
 	e.Id = s.NextId
 	s.Employees = append(s.Employees, *e)
 
