@@ -16,7 +16,7 @@ func (m Model) updateStateList(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	// key shortcut
 	switch msg.String() {
-	case "m", "M":
+	case "m", "M", tea.KeyEsc.String():
 		m.state = optMenu
 		return m, nil
 	case "i", "I":
@@ -36,7 +36,7 @@ func (m Model) updateStateList(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 }
 
 func (m Model) viewStateList() string {
-	render := renderHeader("LIST")
+	render := renderHeader("List of Employees")
 	render += m.table.View()
 	render += renderFooter("sort by: [I]d, [N]ame or [P]hone. [Q]uit. [M]ain menu")
 	return render
