@@ -25,8 +25,19 @@ func (m Model) updateIdInput(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 			m.message = err.Error()
 			return m, cmd
 		}
-		m.inputState = inputDisabled
 
+		switch m.state {
+		case optView, optDelete:
+			m.inputState = inputDisabled
+		case optEdit:
+			m.inputState = inputEmployeeState
+			m.employeeInputs = m.initEmployeeInputs()
+			m.employeeInputs[0].SetValue(m.selectedEmployee.Name)
+			m.employeeInputs[1].SetValue(m.selectedEmployee.Phone)
+			m.employeeInputs[2].SetValue(m.selectedEmployee.Position)
+			m.employeeInputs[3].SetValue(m.selectedEmployee.Email)
+
+		}
 	case tea.KeyEsc.String():
 		m.inputState = inputDisabled
 		m.state = optMenu

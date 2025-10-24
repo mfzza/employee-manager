@@ -20,12 +20,15 @@ func (m Model) updateEmployeeInputs(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case "ctrl+c":
 		m.quitting = true
 		return m, tea.Quit
-	// TODO: handle adding employee here
 	case tea.KeyEnter.String():
 		m.inputState = inputDisabled
+
 		// NOTE: it working but look weird
-		if m.state == optAdd {
+		switch m.state {
+		case optAdd:
 			return m.updateStateAdd(msg)
+		case optEdit:
+			return m.updateStateEdit(msg)
 		}
 
 	case "tab", "shift+tab", "down", "up":
@@ -75,24 +78,24 @@ func (m Model) viewEmployeeInputs() string {
 func (m Model) initEmployeeInputs() []textinput.Model {
 	// Initialize inputs
 	tis := make([]textinput.Model, 4)
-	var t textinput.Model
+	var ti textinput.Model
 
 	for i := range tis {
-		t = textinput.New()
-		t.CharLimit = 32
+		ti = textinput.New()
+		ti.CharLimit = 32
 
 		switch i {
 		case 0:
-			t.Prompt = "Enter name: "
-			t.Focus() // focus on first input
+			ti.Prompt = "Enter name: "
+			ti.Focus() // focus on first input
 		case 1:
-			t.Prompt = "Enter phone: "
+			ti.Prompt = "Enter phone: "
 		case 2:
-			t.Prompt = "Enter position: "
+			ti.Prompt = "Enter position: "
 		case 3:
-			t.Prompt = "Enter email: "
+			ti.Prompt = "Enter email: "
 		}
-		tis[i] = t
+		tis[i] = ti
 	}
 	return tis
 }

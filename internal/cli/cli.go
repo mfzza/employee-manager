@@ -43,7 +43,7 @@ type Model struct {
 	employeeInputs []textinput.Model
 	focusedInfo    int
 
-	selectedEmployee employee.Employee
+	selectedEmployee *employee.Employee
 }
 
 func InitialModel(s *employee.Service) Model {
@@ -52,6 +52,9 @@ func InitialModel(s *employee.Service) Model {
 }
 
 func (m Model) Init() tea.Cmd {
+	// m.table = m.initTable("id")
+	// m.idInput = m.initInputId()
+	// m.employeeInputs = m.initEmployeeInputs()
 	return nil
 }
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -68,6 +71,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m.updateStateList(msg)
 		case optView:
 			return m.updateStateView(msg)
+		case optEdit:
+			return m.updateStateEdit(msg)
 		case optDelete:
 			return m.updateStateDelete(msg)
 		}
@@ -80,16 +85,14 @@ func (m Model) View() string {
 	switch m.state {
 	case optMenu:
 		return m.viewStateMenu()
-
 	case optAdd:
 		return m.viewStateAdd()
-
 	case optList:
 		return m.viewStateList()
-
 	case optView:
 		return m.viewStateView()
-
+	case optEdit:
+		return m.viewStateEdit()
 	case optDelete:
 		return m.viewStateDelete()
 	}

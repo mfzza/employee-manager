@@ -66,16 +66,39 @@ func (s *Service) GetAllEmployee(sorting string) []employeeSimple {
 	return list
 }
 
-func (s *Service) GetEmployeeById(id int) (Employee, error) {
+func (s *Service) GetEmployeeById(id int) (*Employee, error) {
 	idx := s.indexFromId(id)
 	if idx < 0 {
-		return Employee{}, fmt.Errorf("Cant view employee, id: %d not exists", id)
+		return nil, fmt.Errorf("Cant view employee, id: %d not exists", id)
 	}
-	return s.Employees[idx], nil
+	return &s.Employees[idx], nil
 }
 
-// TODO: implement this, should be able to let user select what they want to edit, maybe wait for cli implementation?
-func (s *Service) Edit() {}
+func (s *Service) ModifyEmployee(id int, name string, phone string, position string, email string) error {
+	idx := s.indexFromId(id)
+	if idx < 0 {
+		return fmt.Errorf("Cant modify employee, id: %d not exists", id)
+	}
+
+	e := &Employee{
+		Name:     name,
+		Phone:    phone,
+		Position: position,
+		Email:    email,
+	}
+
+	if err := validateEmployeeInfo(e); err != nil {
+		return err
+	}
+
+	s.Employees[idx].Name = name
+	s.Employees[idx].Phone = phone
+	s.Employees[idx].Position = position
+	s.Employees[idx].Email = email
+
+	s.Repo.Save(s.Employees)
+	return nil
+}
 
 func (s *Service) DeleteEmployee(id int) error {
 	idx := s.indexFromId(id)
