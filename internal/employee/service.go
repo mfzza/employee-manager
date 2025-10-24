@@ -18,10 +18,12 @@ type employeeSimple struct {
 	Phone string
 }
 
-func NewService(repo Repository) *Service {
-	// empty slice
-	// NOTE: id start from 1
-	return &Service{Employees: []Employee{}, Repo: &repo, NextId: 1}
+func NewService(repo *Repository) ( *Service, error ) {
+	employees, err := repo.Load()
+	if err != nil {
+		return nil, fmt.Errorf("failed to load employees: %w", err)
+	}
+	return &Service{Employees: employees, Repo: repo, NextId: 1}, nil
 }
 
 func (s *Service) AddEmployee(name string, phone string, position string, email string) error {

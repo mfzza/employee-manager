@@ -11,10 +11,7 @@ import (
 
 func main() {
 	repo := employee.NewRepository("./test.json")
-	srv := employee.NewService(*repo)
-
-	var err error
-	srv.Employees, err = repo.Load()
+	srv, err := employee.NewService(repo)
 	if err != nil {
 		fmt.Println("Error loading employees:", err)
 		os.Exit(1)
