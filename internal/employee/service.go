@@ -112,14 +112,14 @@ func (s *Service) indexFromId(id int) int {
 	return -1
 }
 
-func (s *Service) updateLastId() int {
+func (s *Service) updateLastId() {
+	// update NextId to id + 1 from last employee
 	lastIndex := len(s.Employees) - 1
 	// return 0 since it empty
 	if lastIndex < 0 {
 		s.NextId = 1
-		return 1
+		return
 	}
 	s.NextId = s.Employees[lastIndex].Id + 1
-	return s.NextId
 
 }
